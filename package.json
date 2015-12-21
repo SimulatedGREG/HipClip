@@ -1,0 +1,25 @@
+{
+  "name": "HipClip",
+  "version": "0.0.0",
+  "description": "A minimal clipboard history application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simulatedgreg/hipclip.git"
+  },
+  "keywords": [
+    "Electron",
+    "clipboard",
+    "history",
+    "pasteboard",
+    "paste",
+    "copy"
+  ],
+  "author": "Greg Holguin <simulatedgreg@gmail.com>",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.0"
+  }
+}
