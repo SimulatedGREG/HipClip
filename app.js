@@ -55,9 +55,13 @@ _Storage.get = function(id) {
 
 _Storage.getAll = function() {
   var items = [];
+  var patt = new RegExp(/^\s*data:([a-z]+\/[a-z0-9\-]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i);
   for(var i = 0, len = localStorage.length; i < len; i++) {
     try {
-      items.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+      items.push({
+        data: localStorage.getItem(localStorage.key(i)),
+        format: patt.test(localStorage.getItem(localStorage.key(i))) ? 'image' : 'text'
+      });
     } catch(err) {}
   }
   return items;
@@ -71,15 +75,6 @@ _Storage.getLastItem = function() {
 _Storage.clean = function() {
   //get current time
   //loop through localStorage and remove expired items
-};
-
-_Storage.genId = function() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4() + s4();
 };
 
 _Storage.removeAll = function() {
