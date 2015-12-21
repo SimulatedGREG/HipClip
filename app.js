@@ -1,6 +1,17 @@
 var clipboard = require('electron').clipboard;
+var $ = require('jquery');
 
-var HipClip = Object.create({}),
+var HipClip = Object.create({
+  dom: new Vue({
+    el: '#list',
+    items: [],
+    methods: {
+      refresh: function() {
+        this.items = _Storage.getAll();
+      }
+    }
+  })
+}),
   _Storage = Object.create({});
 
 HipClip._init = function() {
@@ -36,13 +47,11 @@ HipClip.captureBoard = function(data, format) {
 };
 
 HipClip.populate = function() {
-  var items = _Storage.getAll();
-  //render items to DOM
+  this.dom.refresh();
 };
 
 _Storage.new = function(data, format) {
-  var t = Date.now();
-  localStorage.setItem(t, data);
+  localStorage.setItem(Date.now(), data);
 };
 
 _Storage.remove = function(id) {
@@ -79,6 +88,7 @@ _Storage.clean = function() {
 
 _Storage.removeAll = function() {
   localStorage.clear();
+  HipClip.populate();
 };
 
 HipClip._init();
