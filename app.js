@@ -1,5 +1,12 @@
+var remote = require('electron').remote;
+var BrowserWindow = remote.BrowserWindow;
 var clipboard = require('electron').clipboard;
 var $ = require('jquery');
+
+BrowserWindow.getAllWindows()[0].on('focus', function() {
+  HipClip.populate();
+  $('#list').scrollTop(0);
+});
 
 var HipClip = Object.create({
   dom: new Vue({
@@ -25,9 +32,9 @@ var HipClip = Object.create({
 
 HipClip._init = function() {
   _Storage.clean();
+  this.binders();
   this.watch();
 };
-
 
 // TODO: figure out this this
 HipClip.watch = function() {
@@ -58,14 +65,14 @@ HipClip.writeCopy = function(i) {
       clipboard.writeText(this.dom.items[i].data);
       break;
     case 'image':
-      clipboard.writeImage(this.dom.items[i].data);
+      clipboard.writeImage(nativeImage.createFromDataURL(this.dom.items[i].data));
       break;
   }
+  BrowserWindow.getAllWindows()[0].hide();
 };
 
 HipClip.populate = function() {
   this.dom.refresh();
-  this.binders();
 };
 
 HipClip.binders = function() {
@@ -86,16 +93,20 @@ HipClip.binders = function() {
         d = 1;
         break;
       case 13: //enter
-        HipClip.writeCopy(i);
+        HipClip.writeCopy(HipClip.dom.selectedIndex);
+        break;
+      case 27: //escape
+        BrowserWindow.getAllWindows()[0].hide();
         break;
     }
     if(d !== null && typeof HipClip.dom.items[HipClip.dom.selectedIndex+d] !== 'undefined') {
       HipClip.dom.items[HipClip.dom.selectedIndex].selected = '';
       HipClip.dom.items[HipClip.dom.selectedIndex+d].selected = 'selected';
       HipClip.dom.selectedIndex = HipClip.dom.selectedIndex+d;
+      $('#list').scrollTop($('.selected').offset().bottom);
     }
 
-    $('#list').scrollTop($('.selected').offset().top+8);
+
   });
 };
 
