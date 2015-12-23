@@ -4,7 +4,9 @@ var $ = require('jquery');
 var HipClip = Object.create({
   dom: new Vue({
     el: '#list',
-    items: [],
+    data: {
+      items: []
+    },
     methods: {
       refresh: function() {
         this.items = _Storage.getAll();
