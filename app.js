@@ -1,6 +1,7 @@
 var remote = require('electron').remote;
 var BrowserWindow = remote.BrowserWindow;
 var clipboard = require('electron').clipboard;
+var nativeImage = require('electron').nativeImage;
 var $ = require('jquery');
 
 BrowserWindow.getAllWindows()[0].on('focus', function() {
