@@ -4,7 +4,9 @@
   "description": "A minimal clipboard history application",
   "main": "main.js",
   "scripts": {
-    "start": "electron main.js"
+    "start": "electron main.js",
+    "package": "asar pack HipClip-darwin-x64/HipClip.app/Contents/Resources/app HipClip-darwin-x64/HipClip.app/Contents/Resources/app.asar && rm -rf HipClip-darwin-x64/HipClip.app/Contents/Resources/app",
+    "build": "electron-packager . HipClip --overwrite --ignore=node_modules/electron-* --platform=darwin --arch=x64 --version=0.36.1"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,8 @@
   ],
   "author": "Greg Holguin <simulatedgreg@gmail.com>",
   "devDependencies": {
+    "asar": "^0.9.0",
+    "electron-packager": "^5.2.0",
     "electron-prebuilt": "^0.36.0"
   },
   "dependencies": {
