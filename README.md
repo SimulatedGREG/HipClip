@@ -1,8 +1,15 @@
-# HipClip
+# HipClip [BETA]
+A minimal clipboard history app built with electron.
 
-A minimal Electron app for clipboard history.
+## Install
+```
+git clone https://github.com/simulatedgreg/hipclip.git
+npm install && npm start
+```
 
-### Install
-```git clone https://github.com/simulatedgreg/hipclip.git```
-
-```npm install && npm start```
+### How to Use
+Open HipClip with the global hot key!
+```
+ctrl+alt(option)+h
+```
+Use up/down arrow key to selected a clipboard item and hit enter to recopy to clipboard. Use Escape to close HipClip.
