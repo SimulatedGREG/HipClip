@@ -103,8 +103,11 @@ HipClip.binders = function() {
     if(d !== null && typeof HipClip.dom.items[HipClip.dom.selectedIndex+d] !== 'undefined') {
       HipClip.dom.items[HipClip.dom.selectedIndex].selected = '';
       HipClip.dom.items[HipClip.dom.selectedIndex+d].selected = 'selected';
+      $('#list').scrollTo(
+        ((d == 1) ? '+=' : '-=') + ((HipClip.dom.items[HipClip.dom.selectedIndex].format == 'text') ? '76px' : '152px'),
+        { axis: 'y' }
+      );
       HipClip.dom.selectedIndex = HipClip.dom.selectedIndex+d;
-      $('#list').scrollTop($('.selected').offset().bottom);
     }
 
 

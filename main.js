@@ -25,7 +25,7 @@ app.on('ready', function() {
     width: 500,
     height: 400,
     center: true,
-    resizable: false,
+    // resizable: false,
     alwaysOnTop: true,
     fullscreen: false,
     skipTaskbar: false,
@@ -35,7 +35,7 @@ app.on('ready', function() {
     transparent: true
   });
 
-  var openHistory = globalShortcut.register('ctrl+shift+h', function() {
+  var openHistory = globalShortcut.register('ctrl+alt+h', function() {
     mainWindow.show();
   });
 
@@ -43,7 +43,7 @@ app.on('ready', function() {
   mainWindow.loadURL('file://' + __dirname + '/index.html');
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
