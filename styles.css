@@ -29,6 +29,7 @@ html, body {
   border-radius: 5px;
   box-shadow: 0px 3px 12px 3px rgba(0,0,0,0.1);
   position: relative;
+  transition: all 40ms ease-in-out;
 }
 
 .text {
@@ -78,6 +79,30 @@ html, body {
   right: 8px;
   font-size: 14px;
   z-index: 1;
+}
+
+.list-item.selected {
+  cursor: pointer;
+}
+
+.list-item.text.selected .item-timestamp {
+  color: #ecf0f1;
+}
+
+.list-item.text.selected h1 {
+  color: white;
+}
+
+.list-item.text.selected {
+  background: linear-gradient(to bottom, rgba(61,128,252,1) 0%, rgba(9,95,254,1) 100%);
+}
+
+.list-item.image.selected .item-image {
+  border-radius: 0;
+}
+
+.list-item.image.selected {
+  border: #0960fe 8px solid;
 }
 
 .fa-clock-o {
