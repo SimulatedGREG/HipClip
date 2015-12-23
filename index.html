@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="list">
-      <div v-for="item in items" class="list-item {{ item.format }}">
+      <div v-for="item in items" v-on:click="copy($index)" class="list-item {{ item.format }}">
         <span class="item-timestamp"><i class="fa fa-clock-o"></i>7 minutes ago</span>
         <h1 v-if="item.format == 'text'">{{ item.data }}</h1>
         <div v-if="item.format == 'image'"

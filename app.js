@@ -10,6 +10,17 @@ var HipClip = Object.create({
     methods: {
       refresh: function() {
         this.items = _Storage.getAll();
+        this.items = this.items.reverse();
+      },
+      copy: function(i) {
+        switch(this.items[i].format) {
+          case 'text':
+            clipboard.writeText(this.items[i].data);
+            break;
+          case 'image':
+            clipboard.writeImage(this.items[i].data);
+            break;
+        }
       }
     }
   })
@@ -26,7 +37,7 @@ HipClip._init = function() {
 
 // TODO: figure out this this
 HipClip.watch = function() {
-  var watcher = setInterval(function() {
+  var watchInterval = setInterval(function() {
     HipClip.readBoard();
   }, 200);
 };
@@ -36,7 +47,7 @@ HipClip.readBoard = function() {
   if(clipboard.availableFormats().length > 0) {
     var format = clipboard.availableFormats()[0].split('/')[0],
       item = (format == 'text') ? clipboard.readText() : clipboard.readImage().toDataUrl();
-    if(_Storage.getLastItem() === null || item != _Storage.getLastItem())
+    if(_Storage.getLastItem() === null || !_Storage.search(item))
       this.captureBoard(item, format);
   }
 };
@@ -50,6 +61,16 @@ HipClip.captureBoard = function(data, format) {
 
 HipClip.populate = function() {
   this.dom.refresh();
+  this.binders();
+};
+
+HipClip.binders = function() {
+  $(document).on('mouseenter', '.list-item', function() {
+    $(this).addClass('selected');
+  });
+  $(document).on('mouseleave', '.list-item', function() {
+    $(this).removeClass('selected');
+  });
 };
 
 _Storage.new = function(data, format) {
@@ -81,6 +102,16 @@ _Storage.getAll = function() {
 _Storage.getLastItem = function() {
   var len = localStorage.length;
   return (len > 0) ? localStorage.getItem(localStorage.key(len-1)) : null;
+};
+
+_Storage.search = function(data) {
+  for(var i = 0, len = localStorage.length; i < len; i++) {
+    if(data == localStorage.getItem(localStorage.key(i))) {
+      return true;
+    }
+  }
+
+  return false;
 };
 
 _Storage.clean = function() {
