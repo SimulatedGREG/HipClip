@@ -2,6 +2,7 @@
 const electron = require('electron');
 const app = electron.app;  // Module to control application life.
 const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
+// const globalShortcut = electron.globalShortcut;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -24,16 +25,19 @@ app.on('ready', function() {
     width: 500,
     height: 400
     // center: true,
-    // minWidth: 500,
-    // minHeight: 400,
     // resizable: false,
     // alwaysOnTop: true,
     // fullscreen: false,
-    // skipTaskbar: true,
+    // skipTaskbar: false,
     // frame: false,
+    // // show: false,
     // 'title-bar-style': 'hidden',
     // transparent: true
   });
+
+  // var openHistory = globalShortcut.register('ctrl+shift+h', function() {
+  //   mainWindow.show();
+  // });
 
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/index.html');
@@ -49,3 +53,7 @@ app.on('ready', function() {
     mainWindow = null;
   });
 });
+
+// app.on('will-quit', function() {
+//   globalShortcut.unregisterAll();
+// });

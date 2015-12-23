@@ -5,22 +5,18 @@ var HipClip = Object.create({
   dom: new Vue({
     el: '#list',
     data: {
-      items: []
+      items: [],
+      selectedIndex: 0
     },
     methods: {
       refresh: function() {
         this.items = _Storage.getAll();
         this.items = this.items.reverse();
+        this.items[0].selected = 'selected';
+        this.selectedIndex = 0;
       },
       copy: function(i) {
-        switch(this.items[i].format) {
-          case 'text':
-            clipboard.writeText(this.items[i].data);
-            break;
-          case 'image':
-            clipboard.writeImage(this.items[i].data);
-            break;
-        }
+        HipClip.writeCopy(i);
       }
     }
   })
@@ -29,8 +25,6 @@ var HipClip = Object.create({
 
 HipClip._init = function() {
   _Storage.clean();
-
-  this.populate();
   this.watch();
 };
 
@@ -56,7 +50,17 @@ HipClip.captureBoard = function(data, format) {
   if(format == 'image')
     data = clipboard.readImage().toDataUrl();
   _Storage.new(data, format);
-  HipClip.populate();
+};
+
+HipClip.writeCopy = function(i) {
+  switch(this.dom.items[i].format) {
+    case 'text':
+      clipboard.writeText(this.dom.items[i].data);
+      break;
+    case 'image':
+      clipboard.writeImage(this.dom.items[i].data);
+      break;
+  }
 };
 
 HipClip.populate = function() {
@@ -65,11 +69,33 @@ HipClip.populate = function() {
 };
 
 HipClip.binders = function() {
-  $(document).on('mouseenter', '.list-item', function() {
-    $(this).addClass('selected');
-  });
-  $(document).on('mouseleave', '.list-item', function() {
-    $(this).removeClass('selected');
+  // $(document).on('mouseenter', '.list-item', function() {
+  //   $(this).addClass('selected');
+  // });
+  // $(document).on('mouseleave', '.list-item', function() {
+  //   $(this).removeClass('selected');
+  // });
+
+  $(document).on('keydown', function(e) {
+    var d = null;
+    switch(e.which) {
+      case 38: //up
+        d = -1;
+        break;
+      case 40: //down
+        d = 1;
+        break;
+      case 13: //enter
+        HipClip.writeCopy(i);
+        break;
+    }
+    if(d !== null && typeof HipClip.dom.items[HipClip.dom.selectedIndex+d] !== 'undefined') {
+      HipClip.dom.items[HipClip.dom.selectedIndex].selected = '';
+      HipClip.dom.items[HipClip.dom.selectedIndex+d].selected = 'selected';
+      HipClip.dom.selectedIndex = HipClip.dom.selectedIndex+d;
+    }
+
+    $('#list').scrollTop($('.selected').offset().top+8);
   });
 };
 
@@ -92,7 +118,8 @@ _Storage.getAll = function() {
     try {
       items.push({
         data: localStorage.getItem(localStorage.key(i)),
-        format: patt.test(localStorage.getItem(localStorage.key(i))) ? 'image' : 'text'
+        format: patt.test(localStorage.getItem(localStorage.key(i))) ? 'image' : 'text',
+        selected: ''
       });
     } catch(err) {}
   }
