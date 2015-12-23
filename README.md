@@ -2,10 +2,16 @@
 A minimal clipboard history app built with electron.
 
 ## Install
+Copy down the repo...
 ```
-git clone https://github.com/simulatedgreg/hipclip.git
-npm install && npm start
+git clone https://github.com/simulatedgreg/HipClip.git
 ```
+Then run your needed build.
+
+#### Current Builds
+* Mac OSX (x64)
+* Windows 7+ [COMING SOON]
+* Linux [COMING SOON]
 
 ### How to Use
 Open HipClip with the global hot key!
