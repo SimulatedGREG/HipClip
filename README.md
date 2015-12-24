@@ -10,8 +10,8 @@ Then run your needed build.
 
 #### Current Builds
 * Mac OSX (x64)
-* Windows 7+ [COMING SOON]
-* Linux [COMING SOON]
+* Windows 7+ (x64)
+* Linux (x64)
 
 ### How to Use
 Open HipClip with the global hot key!
