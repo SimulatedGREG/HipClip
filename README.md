@@ -26,3 +26,4 @@ Use ```up/down arrow``` keys to selected a clipboard item and hit ```enter``` to
  2. Fix arrow scrolling issues
  3. Make app launch on start up
  4. Test on other platforms
+ 5. Remove FontAwesome dependency (literally only using one icon, lol)
