@@ -2,10 +2,8 @@ var remote = require('electron').remote;
 var BrowserWindow = remote.BrowserWindow;
 var clipboard = require('electron').clipboard;
 var nativeImage = require('electron').nativeImage;
-var $ = require('jquery');
 
 BrowserWindow.getAllWindows()[0].on('focus', function() {
-  HipClip.populate();
   $('#list').scrollTop(0);
 });
 
@@ -33,6 +31,7 @@ var HipClip = Object.create({
 
 HipClip._init = function() {
   _Storage.clean();
+  this.populate();
   this.binders();
   this.watch();
 };
@@ -58,6 +57,7 @@ HipClip.captureBoard = function(data, format) {
   if(format == 'image')
     data = clipboard.readImage().toDataUrl();
   _Storage.new(data, format);
+  this.populate();
 };
 
 HipClip.writeCopy = function(i) {
@@ -134,7 +134,8 @@ _Storage.getAll = function() {
       items.push({
         data: localStorage.getItem(localStorage.key(i)),
         format: patt.test(localStorage.getItem(localStorage.key(i))) ? 'image' : 'text',
-        selected: ''
+        selected: '',
+        timeStamp: $.timeago(Number(localStorage.key(i)))
       });
     } catch(err) {}
   }

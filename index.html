@@ -10,7 +10,7 @@
   <body>
     <div id="list">
       <div v-for="item in items" v-on:click="copy($index)" class="list-item {{ item.format }} {{ item.selected }}">
-        <span class="item-timestamp"><i class="fa fa-clock-o"></i>7 minutes ago</span>
+        <span class="item-timestamp"><i class="fa fa-clock-o"></i>{{ item.timeStamp }}</span>
         <h1 v-if="item.format == 'text'">{{ item.data }}</h1>
         <div v-if="item.format == 'image'"
           class="item-image"
@@ -20,7 +20,12 @@
     </div>
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+      var $ = require('jquery');
+    </script>
+
     <script src="node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
+    <script src="node_modules/timeago/jquery.timeago.js"></script>
     <script src="node_modules/vue/dist/vue.min.js"></script>
 
     <script src="app.js"></script>

@@ -29,6 +29,7 @@
   "dependencies": {
     "jquery": "^2.1.4",
     "jquery.scrollto": "^2.1.2",
-    "vue": "^1.0.12"
+    "vue": "^1.0.12",
+    "timeago": "https://github.com/rmm5t/jquery-timeago.git"
   }
 }

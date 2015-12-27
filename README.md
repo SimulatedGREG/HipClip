@@ -1,21 +1,28 @@
 # HipClip [BETA]
 A minimal clipboard history app built with electron.
 
-## Install
-Copy down the repo...
-```
-git clone https://github.com/simulatedgreg/HipClip.git
-```
-Then run your needed build.
+##### Current Status
+HipClip is known to work on OS X 10.11.2 using ```electron-prebuilt``` with Electron v0.36.1. Testing has not been done on Windows or Linux as of yet.
 
-#### Current Builds
-* Mac OSX (x64)
-* Windows 7+ (x64)
-* Linux (x64)
+## Install
+```
+git clone https://github.com/SimulatedGREG/HipClip.git
+npm install
+npm start
+```
 
 ### How to Use
 Open HipClip with the global hot key!
 ```
 ctrl+alt(option)+h
 ```
-Use up/down arrow key to selected a clipboard item and hit enter to recopy to clipboard. Use Escape to close HipClip.
+Use ```up/down arrow``` keys to selected a clipboard item and hit ```enter``` to recopy to clipboard. Use ```escape``` to close.
+
+## TODO:
+ 1. Settings panel
+    * Set expiration time for copies
+    * Custom highlight color
+    * Dark theme
+ 2. Fix arrow scrolling issues
+ 3. Make app launch on start up
+ 4. Test on other platforms
