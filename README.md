@@ -4,7 +4,7 @@ A minimal clipboard history app built with electron.
 ![screenshot](http://g.recordit.co/feqH0FIh8g.gif)
 
 ##### Current Status
-HipClip is known to work on OS X 10.11.2 using ```electron-prebuilt``` with Electron v0.36.1. Testing has not been done on Windows or Linux as of yet.
+HipClip is known to work on OS X 10.11.2 using ```electron-prebuilt``` with Electron v0.36.1. Only plain text & still images are supported at the moment. Testing has not been done on Windows or Linux as of yet.
 
 ## Install
 ```
@@ -31,3 +31,4 @@ Use ```up/down arrow``` keys to selected a clipboard item and hit ```enter``` to
  5. Remove FontAwesome dependency (literally only using one icon, lol)
  6. Make better gif
  7. Parse Urls and grab meta data for rich data
+ 8. Make hipster logo
