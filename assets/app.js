@@ -3,9 +3,7 @@ var BrowserWindow = remote.BrowserWindow;
 var clipboard = require('electron').clipboard;
 var nativeImage = require('electron').nativeImage;
 
-BrowserWindow.getAllWindows()[0].on('focus', function() {
-  $('#list').scrollTop(0);
-});
+BrowserWindow.getAllWindows()[0].on('focus', function() { HipClip.focus(); });
 
 var HipClip = Object.create({
   dom: new Vue({
@@ -20,9 +18,6 @@ var HipClip = Object.create({
         this.items = this.items.reverse();
         this.items[0].selected = 'selected';
         this.selectedIndex = 0;
-      },
-      copy: function(i) {
-        HipClip.writeCopy(i);
       }
     }
   })
@@ -76,13 +71,15 @@ HipClip.populate = function() {
   this.dom.refresh();
 };
 
+HipClip.focus = function() {
+  $('#list').scrollTop(0);
+  var cache = HipClip.dom;
+  cache.items[cache.selectedIndex].selected = '';
+  cache.selectedIndex = 0;
+  cache.items[0].selected = 'selected';
+};
+
 HipClip.binders = function() {
-  // $(document).on('mouseenter', '.list-item', function() {
-  //   $(this).addClass('selected');
-  // });
-  // $(document).on('mouseleave', '.list-item', function() {
-  //   $(this).removeClass('selected');
-  // });
 
   $(document).on('keydown', function(e) {
     var d = null;
@@ -109,7 +106,6 @@ HipClip.binders = function() {
       );
       HipClip.dom.selectedIndex = HipClip.dom.selectedIndex+d;
     }
-
 
   });
 };
