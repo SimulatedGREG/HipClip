@@ -103,8 +103,10 @@ html, body {
   border: #0960fe 8px solid;
 }
 
-.fa-clock-o {
+.ico-time {
   margin-right: 4px;
+  margin-bottom: 0.5px;
+  width: 11px;
 }
 
 ::-webkit-scrollbar {
